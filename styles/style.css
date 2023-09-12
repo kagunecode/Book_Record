@@ -5,7 +5,10 @@ body {
     --accent-red: #d55672;
     --main-green: #009786;
     --main-gray: rgb(78, 76, 76);
+    --book-background: #fff3f6;
 
+    display: flex;
+    flex-direction: column;
     background-color: var(--background-color);
     font-family: 'Inter', sans-serif;
     font-family: 'Raleway', sans-serif;
@@ -35,4 +38,35 @@ nav {
 .add-book-button:hover {
     cursor: pointer;
     background-color: var(--accent-red);
+}
+
+.container {
+    display: grid;
+    height: 100%;
+    padding: 0 3rem;
+    align-items: center;
+    justify-items: center;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem 5rem;
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--book-background);
+    border: solid var(--accent-red);
+    border-radius: 1rem;
+    padding: 1rem;
+    min-width: clamp(10vw, 100px, 10rem);
+    min-height: 20rem;
+    transition-duration: 0.3s;
+}
+
+.book:hover {
+    cursor: pointer;
+    box-shadow: 0.3rem 0.3rem 0.1rem 0 var(--accent-red);
+    transform: scale(1.05);
 }
