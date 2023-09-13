@@ -6,11 +6,11 @@ const form = document.forms['add-book']
 const closeButton = document.querySelector('#cancelBtn')
 const bookContainer = document.querySelector('.container')
 const userLibrary = new Array()
+let bookId = 0
 
 addBookButton.addEventListener('click', modalPop)
 dialogWindow.addEventListener('close', closeModal)
 closeButton.addEventListener('click', () => dialogWindow.close())
-/* form.addEventListener('submit', validateInput) */
 
 function modalPop() {
     dialogWindow.showModal()
@@ -34,7 +34,10 @@ Book.prototype.addBook = function () {
         author: this.author,
         pages: this.pages,
         pagesRead: this.pagesRead,
+        bookId: bookId
     })
+    bookId += 1
+    this.displayBook()
 }
 
 Book.prototype.displayBook = function () {
@@ -44,15 +47,15 @@ Book.prototype.displayBook = function () {
     upper.classList.add('upper-content')
     const bookTitle = document.createElement('h1')
     bookTitle.classList.add('title')
-    bookTitle.innerText = form['title'].value
+    bookTitle.innerText = this.title
     const bookAuthor = document.createElement('p')
     bookAuthor.classList.add('author')
-    bookAuthor.innerText = form['author'].value
+    bookAuthor.innerText = this.author
     const bookDescription = document.createElement('p')
     bookDescription.classList.add('description')
     const bookStatus = document.createElement('p')
     bookStatus.classList.add('book-status')
-    bookStatus.innerText = readPages(newBook, form['bookPages'].value, form['pagesRead'].value)
+    bookStatus.innerText = this.readPages(newBook)
     bookContainer.appendChild(newBook)
     newBook.appendChild(upper)
     upper.appendChild(bookTitle)
@@ -62,37 +65,12 @@ Book.prototype.displayBook = function () {
     dialogWindow.close()
 }
 
-function addBook() {
-    const newBook = document.createElement('div')
-    newBook.classList.add('book')
-    const upper = document.createElement('div')
-    upper.classList.add('upper-content')
-    const bookTitle = document.createElement('h1')
-    bookTitle.classList.add('title')
-    bookTitle.innerText = form['title'].value
-    const bookAuthor = document.createElement('p')
-    bookAuthor.classList.add('author')
-    bookAuthor.innerText = form['author'].value
-    const bookDescription = document.createElement('p')
-    bookDescription.classList.add('description')
-    const bookStatus = document.createElement('p')
-    bookStatus.classList.add('book-status')
-    bookStatus.innerText = readPages(newBook, form['bookPages'].value, form['pagesRead'].value)
-    bookContainer.appendChild(newBook)
-    newBook.appendChild(upper)
-    upper.appendChild(bookTitle)
-    upper.appendChild(bookAuthor)
-    newBook.appendChild(bookDescription)
-    newBook.appendChild(bookStatus)
-    dialogWindow.close()
-}
-
-function readPages(book, totalPages, totalPagesRead) {
-    if (totalPages == totalPagesRead) {
+Book.prototype.readPages = function (book) {
+    if (this.pages == this.pagesRead) {
         book.classList.add('finished')
         return `Finished`
     } else {
-        return `${totalPagesRead} / ${totalPages}`
+        return `${this.pagesRead} / ${this.pages}`
     }
 }
 
@@ -103,6 +81,7 @@ function validateInput() {
         alert('Read pages can\'t be higher than total pages')
         return false
     }
-    addBook()
+    let book = new Book(form['title'].value, form['author'].value, pages, pagesRead)
+    book.addBook()
     form.reset()
 }
