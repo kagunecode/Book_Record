@@ -22,22 +22,22 @@
     <dialog class="book-dialog">
         <div class="add-book-style">
             <div class="modal-title">Add Book</div>
-            <form name="add-book" action="" method="post">
+            <form name="add-book" action="" method="post" onsubmit="event.preventDefault(); validateInput();">
                 <div class="modal-box">
                     <label for="title-input" class="input-label">Book title</label>
-                    <input id="title-input" type="text" name="title">
+                    <input id="title-input" type="text" name="title" required>
                 </div>
                 <div class="modal-box">
                     <label for="author-input" class="input-label">Author</label>
-                    <input id="author-input" type="text" name="author">
+                    <input id="author-input" type="text" name="author" required>
                 </div>
                 <div class="modal-box">
                     <label for="pages-input" class="input-label">Number of pages</label>
-                    <input id="pages-input" type="text" name="bookPages">
+                    <input id="pages-input" type="number" name="bookPages" required>
                 </div>
                 <div class="modal-box">
                     <label for="read-input" class="input-label">Pages read</label>
-                    <input id="read-input" type="text" name="pagesRead">
+                    <input id="read-input" type="number" name="pagesRead" required>
                 </div>
                 <div class="dialog-buttons">
                     <button class="modalbtn" id="cancelBtn" type="reset">Cancel</button>
