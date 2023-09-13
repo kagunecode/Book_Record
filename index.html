@@ -16,116 +16,36 @@
     </header>
 
     <div class="container">
-        <div class="book">
-            <div class="upper-content">
-                <h1 class="title">Harry Potter</h1>
-                <p class="author">J.K. Rowling</p>
-            </div>
-            <p class="description"></p>
-            <p class="book-status">Finished</p>
-        </div>
-        <div class="book">
-            <div class="upper-content">
-                <h1 class="title">Harry Potter</h1>
-                <p class="author">J.K. Rowling</p>
-            </div>
-            <p class="description"></p>
-            <p class="book-status">Finished</p>
-        </div>
-        <div class="book">
-            <div class="upper-content">
-                <h1 class="title">Harry Potter</h1>
-                <p class="author">J.K. Rowling</p>
-            </div>
-            <p class="description"></p>
-            <p class="book-status">Finished</p>
-        </div>
-        <div class="book">
-            <div class="upper-content">
-                <h1 class="title">Harry Potter</h1>
-                <p class="author">J.K. Rowling</p>
-            </div>
-            <p class="description"></p>
-            <p class="book-status">Finished</p>
-        </div>
+    </div>
 
-        <div class="book">
-            <div class="upper-content">
-                <h1 class="title">Harry Potter</h1>
-                <p class="author">J.K. Rowling</p>
-            </div>
-            <p class="description"></p>
-            <p class="book-status">Finished</p>
-        </div>
 
-        <div class="book">
-            <div class="upper-content">
-                <h1 class="title">Harry Potter</h1>
-                <p class="author">J.K. Rowling</p>
-            </div>
-            <p class="description"></p>
-            <p class="book-status">Finished</p>
+    <dialog class="book-dialog">
+        <div class="add-book-style">
+            <div class="modal-title">Add Book</div>
+            <form name="add-book" action="" method="post">
+                <div class="modal-box">
+                    <label for="title-input" class="input-label">Book title</label>
+                    <input id="title-input" type="text" name="title">
+                </div>
+                <div class="modal-box">
+                    <label for="author-input" class="input-label">Author</label>
+                    <input id="author-input" type="text" name="author">
+                </div>
+                <div class="modal-box">
+                    <label for="pages-input" class="input-label">Number of pages</label>
+                    <input id="pages-input" type="text" name="bookPages">
+                </div>
+                <div class="modal-box">
+                    <label for="read-input" class="input-label">Pages read</label>
+                    <input id="read-input" type="text" name="pagesRead">
+                </div>
+                <div class="dialog-buttons">
+                    <button class="modalbtn" id="cancelBtn" type="reset">Cancel</button>
+                    <button id="confirmBtn" class="modalbtn" value="default" type="submit">Confirm</button>
+                </div>
+            </form>
         </div>
-        <div class="book">
-            <div class="upper-content">
-                <h1 class="title">Harry Potter</h1>
-                <p class="author">J.K. Rowling</p>
-            </div>
-            <p class="description"></p>
-            <p class="book-status">Finished</p>
-        </div>
-        <div class="book">
-            <div class="upper-content">
-                <h1 class="title">Harry Potter</h1>
-                <p class="author">J.K. Rowling</p>
-            </div>
-            <p class="description"></p>
-            <p class="book-status">Finished</p>
-        </div>
-        <div class="book">
-            <div class="upper-content">
-                <h1 class="title">Harry Potter</h1>
-                <p class="author">J.K. Rowling</p>
-            </div>
-            <p class="description"></p>
-            <p class="book-status">Finished</p>
-        </div>
-        <div class="book">
-            <div class="upper-content">
-                <h1 class="title">Harry Potter</h1>
-                <p class="author">J.K. Rowling</p>
-            </div>
-            <p class="description"></p>
-            <p class="book-status">Finished</p>
-        </div>
-
-        <dialog class="book-dialog">
-            <div class="add-book-style">
-                <div class="modal-title">Add Book</div>
-                <form>
-                    <div class="modal-box">
-                        <label for="title-input" class="input-label">Book title</label>
-                        <input id="title-input" type="text">
-                    </div>
-                    <div class="modal-box">
-                        <label for="author-input" class="input-label">Author</label>
-                        <input id="author-input" type="text">
-                    </div>
-                    <div class="modal-box">
-                        <label for="pages-input" class="input-label">Number of pages</label>
-                        <input id="pages-input" type="text">
-                    </div>
-                    <div class="modal-box">
-                        <label for="read-input" class="input-label">Pages read</label>
-                        <input id="read-input" type="text">
-                    </div>
-                    <div class="dialog-buttons">
-                        <button class="modalbtn" value="cancel" formmethod="dialog">Cancel</button>
-                        <button id="confirmBtn" class="modalbtn" value="default">Confirm</button>
-                    </div>
-                </form>
-            </div>
-        </dialog>
+    </dialog>
 
 </body>
 

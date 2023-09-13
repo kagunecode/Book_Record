@@ -83,6 +83,16 @@ header {
     transform: scale(1.05);
 }
 
+.finished {
+    border: solid var(--main-green);
+}
+
+.finished:hover {
+    cursor: pointer;
+    box-shadow: 0.3rem 0.3rem 0.1rem 0 var(--main-green);
+    transform: scale(1.05);
+}
+
 .upper-content {
     display: flex;
     flex-direction: column;
