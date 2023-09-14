@@ -7,7 +7,8 @@ body {
     --main-gray: rgb(78, 76, 76);
     --book-background: #fff3f6;
     --background-color-rgb: "247, 245, 221";
-    --text-color: white;
+    --text-color-strong: white;
+    --text-color-weak: black;
 
     display: flex;
     flex-direction: column;
@@ -20,9 +21,39 @@ body {
     margin: 0;
 }
 
+body.dark {
+    --background-color: #11151c;
+    --accent-red: #c33c54;
+    --main-green: #009752;
+    --book-background: #fff3f6;
+    --main-gray: #383c44;
+    --text-color-strong: black;
+    --text-color-weak: white;
+}
+
 
 body#blur.active {
     filter: blur(10px)
+}
+
+.right-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mode-switch {
+    background-color: var(--main-gray);
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 1rem;
+    transition-duration: 0.3s;
+    margin-right: 1rem;
+}
+
+.mode-switch:hover {
+    background-color: var(--accent-red);
+    cursor: pointer;
 }
 
 header {
@@ -42,7 +73,7 @@ header {
 
 .add-book-button {
     background-color: var(--main-gray);
-    color: var(--background-color);
+    color: white;
     padding: 0.6rem 6rem;
     border-radius: 1rem;
     transition-duration: 0.3s;
@@ -76,6 +107,7 @@ header {
     width: 13rem;
     height: 20rem;
     transition-duration: 0.3s;
+    color: black;
 }
 
 .book:hover {
@@ -134,6 +166,7 @@ header {
     border-radius: 1rem;
     border: solid var(--main-gray);
     background-color: var(--background-color);
+    color: var(--text-color-weak);
 }
 
 .is-blurred {
@@ -181,6 +214,7 @@ input {
     font-weight: bold;
     cursor: pointer;
     transition-duration: 0.3s;
+    color: white;
 }
 
 .modalbtn:hover {

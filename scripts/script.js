@@ -7,6 +7,7 @@ const closeButton = document.querySelector('#cancelBtn')
 const bookContainer = document.querySelector('.container')
 let userLibrary = new Array()
 const modalTitle = document.querySelector('.modal-title')
+const modeSwitch = document.querySelector('.mode-switch')
 let bookId = 0
 let elementChange = ''
 let bookEditId = 0
@@ -15,6 +16,7 @@ let bookObjects = new Array()
 addBookButton.addEventListener('click', modalPop)
 dialogWindow.addEventListener('close', closeModal)
 closeButton.addEventListener('click', () => dialogWindow.close())
+modeSwitch.addEventListener('click', modeToggle)
 
 function modalPop() {
     dialogWindow.showModal()
@@ -123,4 +125,16 @@ function validateInput() {
         bookObjects[bookEditId].edit()
     }
     form.reset()
+}
+
+function modeToggle(e) {
+    if (e.target.classList.contains('bi-sun-fill')) {
+        e.target.classList.remove('bi-sun-fill')
+        e.target.classList.add('bi-moon-stars-fill')
+        document.querySelector("body").classList.add('dark')
+    } else {
+        e.target.classList.remove("bi-moon-stars-fill");
+        e.target.classList.add("bi-sun-fill");
+        document.querySelector("body").classList.remove("dark");
+    }
 }
