@@ -127,7 +127,7 @@ header {
     height: 60%;
     border-radius: 1rem;
     border: solid var(--main-gray);
-    background-color: var(--book-background);
+    background-color: var(--background-color);
 }
 
 .is-blurred {

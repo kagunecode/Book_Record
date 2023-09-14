@@ -5,10 +5,12 @@ const confirmBtn = document.querySelector("#confirmBtn")
 const form = document.forms['add-book']
 const closeButton = document.querySelector('#cancelBtn')
 const bookContainer = document.querySelector('.container')
-const userLibrary = new Array()
+let userLibrary = new Array()
 const modalTitle = document.querySelector('.modal-title')
 let bookId = 0
 let elementChange = ''
+let bookEditId = 0
+let bookObjects = new Array()
 
 addBookButton.addEventListener('click', modalPop)
 dialogWindow.addEventListener('close', closeModal)
@@ -20,27 +22,19 @@ function modalPop() {
     blur.classList.toggle('active')
 }
 
-function modalPopEdit(e) {
-    dialogWindow.showModal()
-    modalTitle.innerText = 'Edit book'
-    blur.classList.toggle('active')
-    editBook(e)
-}
-
 function closeModal() {
     blur.classList.toggle('active')
 }
 
 function editBook(e) {
-    console.log(e.target.getAttribute('data-id'))
-    console.log(userLibrary[e.target.getAttribute('data-id')])
     modalPop()
     modalTitle.innerText = 'Edit book'
-    form['title'].value = userLibrary[e.target.getAttribute('data-id')].title
-    form['author'].value = userLibrary[e.target.getAttribute('data-id')].author
-    form['bookPages'].value = userLibrary[e.target.getAttribute('data-id')].pages
-    form['pagesRead'].value = userLibrary[e.target.getAttribute('data-id')].pagesRead
-    elementChange = document.querySelector(`[data-id="${e.target.getAttribute('data-id')}"]`)
+    bookEditId = e.target.getAttribute('data-id')
+    form['title'].value = userLibrary[bookEditId].title
+    form['author'].value = userLibrary[bookEditId].author
+    form['bookPages'].value = userLibrary[bookEditId].totalPages
+    form['pagesRead'].value = userLibrary[bookEditId].totalRead
+    elementChange = document.querySelector(`[data-id="${bookEditId}"]`)
 }
 
 
@@ -49,21 +43,20 @@ function Book(title, author, pages, pagesRead) {
     this.author = author
     this.pages = pages
     this.pagesRead = pagesRead
-    this.elementChange = ''
 }
 
 Book.prototype.addBook = function () {
     userLibrary.push({
         title: this.title,
         author: this.author,
-        pages: this.pages,
-        pagesRead: this.pagesRead,
-        bookId: bookId
+        totalPages: this.pages,
+        totalRead: this.pagesRead,
+        bookId: bookId,
     })
-    this.displayBook()
+    displayBook(this.title, this.author, this.pages, this.pagesRead)
 }
 
-Book.prototype.displayBook = function () {
+function displayBook(title, author, pages, pagesRead) {
     const newBook = document.createElement('div')
     newBook.classList.add('book')
     newBook.setAttribute('data-id', bookId)
@@ -77,7 +70,7 @@ Book.prototype.displayBook = function () {
     bookDescription.classList.add('description')
     const bookStatus = document.createElement('p')
     bookStatus.classList.add('book-status')
-    this.updateBook(bookTitle, bookAuthor, bookStatus, this.title, this.author, this.readPages(newBook, this.pages, this.pagesRead))
+    updateBook(bookTitle, bookAuthor, bookStatus, title, author, pages, pagesRead, readPages(newBook, pages, pagesRead))
     bookContainer.appendChild(newBook)
     newBook.appendChild(upper)
     upper.appendChild(bookTitle)
@@ -85,43 +78,49 @@ Book.prototype.displayBook = function () {
     newBook.appendChild(bookDescription)
     newBook.appendChild(bookStatus)
     const bookElement = document.querySelectorAll('.book')
-    bookElement.forEach(book => book.addEventListener('click', modalPopEdit))
+    bookElement.forEach(book => book.addEventListener('click', editBook))
     dialogWindow.close()
     bookId += 1
+    bookEditId = bookId
 }
 
 Book.prototype.edit = function () {
-    this.updateBook(elementChange.children[0].children[0], elementChange.children[0].children[1], elementChange.children[2], form['title'].value, form['author'].value, this.readPages(elementChange, form['bookPages'].value, form['pagesRead'].value))
+    updateBook(elementChange.children[0].children[0], elementChange.children[0].children[1], elementChange.children[2], form['title'].value, form['author'].value, form['bookPages'].value, form['pagesRead'].value, readPages(elementChange, form['bookPages'].value, form['pagesRead'].value))
     dialogWindow.close()
 }
 
-Book.prototype.updateBook = function (titleElement, authorElement, pagesElement, title, author, pages) {
+function updateBook(titleElement, authorElement, pagesElement, title, author, pages, pagesRead, pagesFunc) {
     titleElement.innerText = title
     authorElement.innerText = author
-    pagesElement.innerText = pages
+    pagesElement.innerText = pagesFunc
+    userLibrary[bookEditId].title = title
+    userLibrary[bookEditId].author = author
+    userLibrary[bookEditId].totalPages = pages
+    userLibrary[bookEditId].totalRead = pagesRead
 }
 
-Book.prototype.readPages = function (book, pages, pagesRead) {
+function readPages(book, pages, pagesRead) {
     if (pages == pagesRead) {
         book.classList.add('finished')
         return `Finished`
     } else {
+        book.classList.remove('finished')
         return `${pagesRead} / ${pages}`
     }
 }
 
 function validateInput() {
-    let pages = form['bookPages'].value
-    let pagesRead = form['pagesRead'].value
-    if (Number(pagesRead) > Number(pages)) {
+    let pages = Number(form['bookPages'].value)
+    let pagesRead = Number(form['pagesRead'].value)
+    if (pagesRead > pages) {
         alert('Read pages can\'t be higher than total pages')
         return false
     }
-    let book = new Book(form['title'].value, form['author'].value, pages, pagesRead)
     if (modalTitle.innerText == 'Add book') {
-        book.addBook()
+        bookObjects.push(new Book(form['title'].value, form['author'].value, pages, pagesRead))
+        bookObjects[bookId].addBook()
     } else if (modalTitle.innerText == 'Edit book') {
-        book.edit()
+        bookObjects[bookEditId].edit()
     }
     form.reset()
 }
